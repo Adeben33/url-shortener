@@ -78,3 +78,43 @@ func (d *db) ListAllElement(key string, start, stop int64) ([]string, error) {
 	}
 	return result, nil
 }
+
+// Add elements to a set
+func (d *db) SetAdd(key string, values interface{}) error {
+	err := d.client.SAdd(d.ctx, key, values).Err()
+	if err != nil {
+		log.Fatal(err)
+		return nil
+	}
+	return nil
+}
+
+//SetMap this is user to save map in the hash store
+func (d *db) SetHash(key string, values interface{}) error {
+	return d.client.HMSet(d.ctx, key, values).Err()
+}
+
+//GetHash this gets the hash/map of in the hash store
+func (d *db) GetHash(key string, values []string) ([]interface{}, error) {
+	result, err := d.client.HMGet(d.ctx, key, values...).Result()
+	if err != nil {
+		log.Println("error getting hass %v", err)
+		return nil, err
+	}
+	return result, nil
+}
+
+//GetHash this gets the hash/map of in the hash store
+func (d *db) GetAllHash(key string) (map[string]string, error) {
+	result, err := d.client.HGetAll(d.ctx, key).Result()
+	if err != nil {
+		log.Println("error getting hass %v", err)
+		return nil, err
+	}
+	return result, nil
+}
+
+//DeleteHashfield this delete fields in a hash
+func (d *db) DeleteHashfield(key string, fields []string) error {
+	return d.client.HDel(d.ctx, key, fields...).Err()
+}
