@@ -114,7 +114,12 @@ func (d *db) GetAllHash(key string) (map[string]string, error) {
 	return result, nil
 }
 
-//DeleteHashfield this delete fields in a hash
+//DeleteHashfield this deletes fields in a hash
 func (d *db) DeleteHashfield(key string, fields []string) error {
 	return d.client.HDel(d.ctx, key, fields...).Err()
+}
+
+//HashfieldExists this checks a fields in a hash
+func (d *db) HashfieldExists(key string, field string) error {
+	return d.client.HExists(d.ctx, key, field).Err()
 }
