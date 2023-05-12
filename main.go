@@ -9,6 +9,7 @@ import (
 
 func main() {
 	ctx := context.Background()
-	redis.ConnectToRedis(ctx)
+	client := redis.ConnectToRedis(ctx)
 	fmt.Print(utils.Base62Converter(300000055300))
+	redis.Repo
 }
