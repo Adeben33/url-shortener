@@ -28,3 +28,7 @@ func ConnectToRedis(ctx context.Context) *redis.Client {
 	db = client
 	return client
 }
+
+func CloseRedisDb(client *redis.Client) string {
+	return client.Close().Error()
+}
