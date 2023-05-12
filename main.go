@@ -1,15 +1,8 @@
 package main
 
-import (
-	"context"
-	"fmt"
-	"url-shortener/database/redis"
-	"url-shortener/utils"
-)
+import "url-shortener/cmd"
 
 func main() {
-	ctx := context.Background()
-	client := redis.ConnectToRedis(ctx)
-	fmt.Print(utils.Base62Converter(300000055300))
-	redis.Repo
+	cmd.Setup()
+
 }
