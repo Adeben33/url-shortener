@@ -2,7 +2,7 @@ package redis
 
 import "time"
 
-type redisInterface interface {
+type RedisInterface interface {
 	Get(key string) (*string, error)
 	Set(key string, value interface{}, expiration time.Duration) (*string, error)
 	Delete(key string) error
@@ -16,4 +16,5 @@ type redisInterface interface {
 	GetAllHash(key string) (map[string]string, error)
 	DeleteHashfield(key string, fields []string) error
 	HashfieldExists(key string, field string) error
+	Ping() (*string, error)
 }

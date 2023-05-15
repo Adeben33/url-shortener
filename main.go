@@ -4,5 +4,4 @@ import "url-shortener/cmd"
 
 func main() {
 	cmd.Setup()
-
 }

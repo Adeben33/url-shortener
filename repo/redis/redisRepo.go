@@ -12,11 +12,20 @@ type Db struct {
 	ctx    context.Context
 }
 
-func RedisRepo(client redis.Client, ctx context.Context) redisInterface {
+func RedisRepo(client *redis.Client, ctx context.Context) RedisInterface {
 	return &Db{
-		client: nil,
-		ctx:    nil,
+		client: client,
+		ctx:    ctx,
 	}
+}
+
+func (d *Db) Ping() (*string, error) {
+	result, err := d.client.Ping(d.ctx).Result()
+	if err != nil {
+		log.Println("error ping the dp")
+		return nil, err
+	}
+	return &result, nil
 }
 
 func (d *Db) Get(key string) (*string, error) {

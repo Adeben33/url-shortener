@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/redis/go-redis/v9"
 	"log"
+	"os"
 )
 
 var db *redis.Client
@@ -14,7 +15,7 @@ func GetRedisDb() *redis.Client {
 
 func ConnectToRedis(ctx context.Context) *redis.Client {
 	client := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:     os.Getenv("DB_ADDR"),
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
